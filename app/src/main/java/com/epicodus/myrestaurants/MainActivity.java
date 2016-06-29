@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.restaurantsButton) Button mRestaurantsButton;
     @Bind(R.id.locationEntry) EditText mLocationEntry;
     @Bind(R.id.appNameTextView) TextView mTitleTextView;
@@ -24,14 +24,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Typeface stuff
 
-        mRestaurantsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String location = mLocationEntry.getText().toString();
-                Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
-                intent.putExtra("location", location);
-                startActivity(intent);
-            }
-        });
+        mRestaurantsButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == mRestaurantsButton) {
+            String location = mLocationEntry.getText().toString();
+            Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+            intent.putExtra("location", location);
+            startActivity(intent);
+        }
     }
 }
+
